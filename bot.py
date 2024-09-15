@@ -1,16 +1,9 @@
 import os
 import ctypes
-
-
-
-
 import pyautogui
-
-
 import telebot
 from telebot import types
 import config
-
 import keyboard
 
 
@@ -56,14 +49,9 @@ def commands_handler(message):
 		forward(message)
 
 
-
-
 @bot.message_handler(commands=["PAUSE", "pause"])
 def presspause(message):
 	keyboard.press('space')
-
-
-
 
 @bot.message_handler(commands=["quiet"])
 def quieter(message):
@@ -113,7 +101,3 @@ def sms_to_client(message):
 	#
 	# path = os.path.abspath("image.jpg")
 	# ctypes.windll.user32.SystemParametersInfoW(20, 0, path, 0)
-
-
-if __name__ == '__main__':
-	bot.polling()
