@@ -52,21 +52,27 @@ def commands_handler(message):
 @bot.message_handler(commands=["PAUSE", "pause"])
 def presspause(message):
 	keyboard.press('space')
+	bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
 
 @bot.message_handler(commands=["quiet"])
 def quieter(message):
 	keyboard.press_and_release('volume down')
+	bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+
 @bot.message_handler(commands=["loud"])
 def loud(message):
 	keyboard.press_and_release('volume up')
+	bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
 
 @bot.message_handler(commands=["<-"])
 def back(message):
 	keyboard.press_and_release('left arrow')
+	bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
 
 @bot.message_handler(commands=["->"])
-def forward(message):   
+def forward(message):
 	keyboard.press_and_release('right arrow')
+	bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
 
 
 
