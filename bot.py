@@ -1,13 +1,9 @@
-import os
-import ctypes
 import time
-
 import pyautogui
 import telebot
 from telebot import types
 import config
 import keyboard
-
 
 bot = telebot.TeleBot(config.TOKEN)
 bot.send_message(config.CHAT_ID, "Bot online")
@@ -21,7 +17,7 @@ def start(message):
     if btns:  # Check that the list of btns is not empty
         rmk.row(*btns[0])
     bot.send_message(message.chat.id,
-        """
+                     """
         Hi, this is a universal remote controller to help you manage your computer from your phone
         
         pause - pauses the video
@@ -32,8 +28,8 @@ def start(message):
          
         write /start
         """,
-        reply_markup=rmk
-    )
+                     reply_markup=rmk
+                     )
 
 
 command_actions = {
@@ -44,6 +40,7 @@ command_actions = {
     "->": lambda: keyboard.press_and_release('right arrow')
 }
 
+
 @bot.message_handler(func=lambda m: m.text and m.text.lstrip('/').lower() in command_actions)
 def handle_command(message):
     cmd = message.text.lstrip('/').lower()
@@ -52,16 +49,17 @@ def handle_command(message):
         action()
     # Delete user message
     try:
+        time.sleep(1)
         bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     except Exception:
         bot.send_message(message.chat.id, "Something went wrong")
+
 
 def sms_to_client(message):
     try:
         pyautogui.alert(message.text, "Message")
     except Exception:
         bot.send_message(message.chat.id, "Something went wrong")
-
 
 # @bot.message_handler(commands=["input"])
 # def send_message_with_answer(message):
@@ -81,9 +79,9 @@ def sms_to_client(message):
 # 	file = message.photo[-1].file_id
 # 	file = bot.get_file(file)
 
-    # download_file = bot.download_file(file.file_path)
-    # with open("image.jpg", "wb") as img:
-    # 	img.write(download_file)
-    #
-    # path = os.path.abspath("image.jpg")
-    # ctypes.windll.user32.SystemParametersInfoW(20, 0, path, 0)
+# download_file = bot.download_file(file.file_path)
+# with open("image.jpg", "wb") as img:
+# 	img.write(download_file)
+#
+# path = os.path.abspath("image.jpg")
+# ctypes.windll.user32.SystemParametersInfoW(20, 0, path, 0)
